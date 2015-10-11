@@ -7,3 +7,7 @@ Checklist:
 - [x] Pathfinding
 - [x] Basic image input
 - [ ] Computer vision
+    - [ ] Detecting corners
+    - [x] Perspective Transform
+    - [ ] Determining color of each grid space (white, red, black or green)
+    - [x] Inputting information into algorithm
