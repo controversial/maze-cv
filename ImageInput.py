@@ -3,6 +3,7 @@ from PIL import Image
 from Dijkstra import *
 
 def find(color, im):
+	'''Find all instances of a certain color in an image'''
 	load = im.load()
 	locations = []
 	for y in range(im.size[1]):
@@ -10,13 +11,18 @@ def find(color, im):
 			if load[x, y] == color:
 				locations.append( (x, y) )
 	return locations
+
 def markPath(path, image):
+	'''Draw in blue the provided path onto the provided image'''
 	import copy
 	i = copy.deepcopy(image)
 	l = i.load()
+	path.pop(0)# Remove the start square
+	path.pop(-1) # Remove the finish square
 	for x, y in path:
 		l[x, y] = (0,0,255)
 	return i
+	
 def GraphFromImage(im):
 	'''Create a graph from an image where black pixels are walls,
 	white are paths, green is the start, and red is the end.'''
@@ -27,7 +33,7 @@ def GraphFromImage(im):
 	path.append(goal)
 	pathNodes = [Node(p) for p in path]
 	graph = Graph(pathNodes)
-	#construct graph
+	#Add connections by finding all neighboring pixels and checking if they exist in the image
 	for x, y in path:
 		neighbors = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
 		node = pathNodes[path.index((x,y))]
