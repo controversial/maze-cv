@@ -5,7 +5,6 @@ A project that aims to solve mazes plotted on graph paper simply by pointing you
 Checklist:
 
 - [x] Pathfinding
-- [x] Basic image input
 - [ ] Computer vision
     - [ ] Detecting corners
     - [x] Perspective Transform
