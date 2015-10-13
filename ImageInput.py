@@ -46,8 +46,9 @@ def GraphFromImage(im):
 	return graph, startNode, goalNode
 
 if __name__ == '__main__':
-	i = Image.open('Test Mazes/maze3.png')
-	i.resize((256,256)).show()
-	graph, start, goal = GraphFromImage(i)
-	path = [x.id for x in Dijkstra(graph, start, goal)]
-	markPath(path, i).resize((256,256)).show()
+        for name in ['maze1.png','maze2.png','maze3.png']:
+                i = Image.open('Test Images/Mazes/'+name)
+                i.resize((256,256)).show()
+                graph, start, goal = GraphFromImage(i)
+                path = [x.id for x in Dijkstra(graph, start, goal)]
+                markPath(path, i).resize((256,256)).show()
