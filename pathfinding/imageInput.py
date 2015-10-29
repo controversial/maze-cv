@@ -1,6 +1,6 @@
 # coding: utf-8
 from PIL import Image
-from Dijkstra import *
+from dijkstra import *
 
 def find(color, im):
 	'''Find all instances of a certain color in an image'''
@@ -45,9 +45,10 @@ def GraphFromImage(im):
 	goalNode = pathNodes[path.index(goal)]
 	return graph, startNode, goalNode
 
+
 if __name__ == '__main__':
         for name in ['maze1.png','maze2.png','maze3.png']:
-                i = Image.open('Test Images/Mazes/'+name)
+                i = Image.open('../Test Images/Mazes/'+name)
                 i.resize((256,256)).show()
                 graph, start, goal = GraphFromImage(i)
                 path = [x.id for x in Dijkstra(graph, start, goal)]

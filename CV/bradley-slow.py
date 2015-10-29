@@ -22,7 +22,7 @@ def bradley_threshold(image, threshold=75, windowsize=5):
 	return image2
 	
 if __name__ == '__main__':
-	p = Image.open('Test Images/test.jpg')
+	p = Image.open('../Test Images/test.jpg')
 	p.show()
 	a=time.time()
 	bradley_threshold(p, 75, 5).show()

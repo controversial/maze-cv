@@ -26,10 +26,14 @@ def absolutecorners(image):
 	'''Return the corners of an image'''
 	width, height = image.size
 	return [(0, 0), (width, 0), (width, height), (0, height)]
-
+def squarecorners(image):
+	'''Return the corners of the biggest square that fits the image'''
+	width = min(image.size)
+	return [(0, 0), (width, 0), (width, width), (0, width)]
 if __name__ == "__main__":
 	from random import randint
-	im = Image.open('test:Lenna')
+	im = Image.open('Test_Lenna')
+	im.show()
 	topleft = (randint(0, 128), randint(0, 128))
 	topright = (randint(128, 256), randint(0, 128))
 	botright = (randint(128, 256), randint(128, 256))

@@ -7,8 +7,11 @@ A project that aims to solve mazes plotted on graph paper simply by pointing you
 Checklist:
 
 - [x] Pathfinding
+    - [ ] Dijkstra
+    - [ ] Image input
 - [ ] Computer vision
-    - [ ] Detecting corners
+    - [x] Detecting corners
     - [x] Perspective Transform
     - [ ] Determining color of each grid space (white, red, black or green)
     - [x] Inputting information into algorithm
+- [ ] Main file
