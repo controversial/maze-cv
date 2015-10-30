@@ -7,8 +7,8 @@ A project that aims to solve mazes plotted on graph paper simply by pointing you
 Checklist:
 
 - [x] Pathfinding
-    - [ ] Dijkstra
-    - [ ] Image input
+    - [x] Dijkstra
+    - [x] Image input
 - [ ] Computer vision
     - [x] Detecting corners
     - [x] Perspective Transform
