@@ -1,17 +1,18 @@
 # maze-cv
 A project that aims to solve mazes plotted on graph paper simply by pointing your device's camera at the maze.
 
-![](http://i.imgur.com/tic0v6U.jpg)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-![](http://i.imgur.com/Pnh4nx9.jpg)
+![](https://pbs.twimg.com/media/CTawH8PW4AEyBWz.jpg)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![](http://i.imgur.com/pzJMLSt.png)
 
 Checklist:
 
 - [x] Pathfinding
     - [x] Dijkstra
     - [x] Image input
-- [ ] Computer vision
+- [x] Computer vision
     - [x] Detecting corners
     - [x] Perspective Transform
     - [ ] Determining color of each grid space (white, red, black or green)
     - [x] Inputting information into algorithm
-- [ ] Main file
+- [x] Main file
+- [x] UI
