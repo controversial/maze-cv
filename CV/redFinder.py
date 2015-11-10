@@ -1,7 +1,11 @@
-# One component at a time method
+'''Can find red objects in an image. Can also find inside coordinates of a rectangle formed by 4 red squares. '''
 
 from PIL import Image, ImageFilter
 from colorsys import rgb_to_hsv
+
+
+
+#----------MINOR FUNCTIONS----------#
 
 def bfs(graph,start):
 	# Breadth-first search to find pixels connected
@@ -39,7 +43,16 @@ def rgb2hsv(*args):
 	
 	h,s,v = rgb_to_hsv(r,g,b)
 	return h*360,s*255,v*255
-	
+
+def manhattan(xy,xy2):
+		x,y=xy
+		x2,y2=xy2
+		return abs(x2-x)+abs(y2-y)	
+
+
+
+#----------MAIN FUNCTIONS----------#
+
 def findRed(i):
 	'''Return `clusters`, a list for each red object in `i` that
 	contains all the pixel coordinates which make up that object'''
@@ -67,26 +80,7 @@ def findRed(i):
 					clusters.append(cluster)
 					visited += cluster
 	#Exclude smaller clusters (accidental red pixels) so that clusters only include objects. 
-	return [c for c in clusters if len(c)>10]
-
-def resize(im, base=200):
-	#Resize so the smaller image dimension is always 200
-	if im.size[0] < im.size[1]:
-		x = im.size[1]
-		y = im.size[0]
-		a = False
-	else:
-		x = im.size[0]
-		y = im.size[1]
-		a = True
-	
-	percent = (base/float(x))
-	size = int((float(y)*float(percent)))
-	if a:
-		im = im.resize((base, int(size*0.5)), Image.ANTIALIAS)
-	else:
-		im = im.resize((size, int(base*0.5)), Image.ANTIALIAS)
-	return im
+	return [c for c in clusters if len(c)>5]
 
 def cornerCoords(image):
 	'''Return inside corners of all red corners in image'''
@@ -109,18 +103,17 @@ def cornerCoords(image):
 	topLeft,topRight=[squarest[centers.index(c)] for c in sorted(sorted(centers,key=lambda x:x[1])[:2],key=lambda x:x[0])]
 	botLeft,botRight=[squarest[centers.index(c)] for c in sorted(sorted(centers,key=lambda x:x[1])[2:],key=lambda x:x[0])]
 	
-	def manhattan(xy,xy2):
-		x,y=xy
-		x2,y2=xy2
-		return abs(x2-x)+abs(y2-y)
-			
-	tl = max(topLeft)
-	bboxTR = min(zip(*topRight)[0]),max(zip(*topRight)[0])
+	bboxTL = max(zip(*topLeft)[0]),max(zip(*topLeft)[1])
+	tl = min(topLeft, key=lambda xy: manhattan(xy,bboxTL))
+	bboxTR = min(zip(*topRight)[0]),max(zip(*topRight)[1])
 	tr = min(topRight, key=lambda xy: manhattan(xy,bboxTR))
-	bboxBL = max(zip(*botLeft)[0]),min(zip(*botLeft)[0])
+	bboxBL = max(zip(*botLeft)[0]),min(zip(*botLeft)[1])
 	bl = min(botLeft, key=lambda xy: manhattan(xy,bboxBL))
-	br = min(botRight)
+	bboxBR = min(zip(*botRight)[0]),min(zip(*botRight)[1])
+	br = min(botRight, key=lambda xy: manhattan(xy,bboxBR))
+
 	scaled= [tuple([int(c*scale) for c in point]) for point in [tl,tr,br,bl]]
+	l = image.load()
 	return scaled
 	
 

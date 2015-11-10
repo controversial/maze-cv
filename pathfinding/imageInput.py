@@ -1,4 +1,4 @@
-# coding: utf-8
+'''Functions for generating and solving graph structures from images'''
 from PIL import Image
 from dijkstra import *
 
@@ -14,23 +14,18 @@ def find(color, im):
 
 def markPath(path, image):
 	'''Draw in blue the provided path onto the provided image'''
-	import copy
-	i = copy.deepcopy(image)
+	i = image.copy()
 	l = i.load()
 	path.pop(0)# Remove the start square
 	path.pop(-1) # Remove the finish square
 	for x, y in path:
 		l[x, y] = (0,0,255)
 	return i
-	
+
 def GraphFromImage(im):
 	'''Create a graph from an image where black pixels are walls,
-	white are paths, green is the start, and red is the end.'''
-	start = find((0,255,0), im)[0]
-	goal  = find((255,0,0), im)[0]
-	path = find((255,255,255), im)
-	path.append(start)
-	path.append(goal)
+	and white are paths.'''
+	path = find((255,255,255), im)+find((0,255,0), im)+find((255,0,0), im)
 	pathNodes = [Node(p) for p in path]
 	graph = Graph(pathNodes)
 	#Add connections by finding all neighboring pixels and checking if they exist in the image
@@ -41,15 +36,32 @@ def GraphFromImage(im):
 			if n in path:
 				node2 = pathNodes[path.index(n)]
 				graph.add_connection(node, node2)
-	startNode = pathNodes[path.index(start)]
-	goalNode = pathNodes[path.index(goal)]
-	return graph, startNode, goalNode
+	return graph
+
+def PathFromImage(im):
+	graph = GraphFromImage(im)
+	startpos = find((0,255,0),im)[0]
+	for node in graph:
+		if node.id == startpos:
+			startNode = node
+			break
+	goalpos = find((255,0,0),im)[0]
+	for node in graph:
+		if node.id == goalpos:
+			goalNode = node
+			break
+	return [x.id for x in Dijkstra(graph, startNode, goalNode)]
 
 
+	
 if __name__ == '__main__':
-        for name in ['maze1.png','maze2.png','maze3.png']:
-                i = Image.open('../Test Images/Mazes/'+name)
-                i.resize((256,256)).show()
-                graph, start, goal = GraphFromImage(i)
-                path = [x.id for x in Dijkstra(graph, start, goal)]
-                markPath(path, i).resize((256,256)).show()
+	import time, ImagePlus
+	for name in ['maze1.png','maze2.png','maze3.png']:
+		i = Image.open('../Test Images/'+name)
+		
+		t1 = time.time()
+		path=PathFromImage(i)
+		resultstr='Solved maze: \''+name+'\' in',time.time()-t1,'seconds.'
+		
+		ImagePlus.sidebyside((i.resize((256,256)), markPath(path, i).resize((256,256)))).show()
+		print resultstr

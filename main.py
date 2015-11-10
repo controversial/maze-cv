@@ -1,11 +1,12 @@
 from CV import *
 from pathfinding import *
-reload(perspective)
-import photos
+from sys import platform
 
-p = photos.pick_image().resize((800,600))
-corners = redFinder.cornerCoords(p)
-print corners
-p2=perspective.transform(corners,perspective.squarecorners(p),p).crop((0,0,600,600))
-print 'transformed'
-p2.show()
+if platform == 'iphoneos':
+	#Script is running in Pythonista
+	from App import App
+else:
+	#Script is running on desktop
+	from PIL import Image
+	img = Image.open('Test Images/photo2.jpg')
+	mazeGen.finalScan(img.resize((320,240))).resize((500,500)).show()

@@ -1,1 +1,1 @@
-import bradley, perspective, redFinder
+import bradley, perspective, redFinder, mazeGen

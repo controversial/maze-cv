@@ -1,3 +1,4 @@
+#By Luke Taylor
 class Node:
 	def __init__(self, name='Node'):
 		self.graph = None #parent graph
@@ -5,7 +6,6 @@ class Node:
 		self.distance = float('inf') # distance from node is infinity
 		self.prev_node = None
 		self.id = name
-		self.location = None #Can be used to store location in an array
 	def __float__(self):
 		return float(self.distance)
 	def __str__(self):
@@ -14,7 +14,7 @@ class Node:
 class Graph:
 	def __init__(self, nodes):
 		self.neighbors = dict(zip(nodes, [{} for _ in nodes]))
-	
+		
 	def __iter__(self):
 		return iter(self.neighbors.keys())
 
@@ -23,21 +23,6 @@ class Graph:
 		self.neighbors[b][a] = cost
 		a.neighbors = self.neighbors[a]
 		b.neighbors = self.neighbors[b]
-
-	def show(self):
-		string = '{'
-		for item in self.neighbors.keys():
-			string += str(item)
-			string += ' : {'
-			for key in self.neighbors[item].keys():
-				string += str(key)
-				string += ' : '
-				string += str(self.neighbors[item][key])
-				string += ', '
-			string += '}, '
-		string += '}'
-		print string
-
 
 def Dijkstra(graph, start, end):
 	if start not in graph or end not in graph:

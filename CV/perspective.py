@@ -1,3 +1,5 @@
+'''Executes perspective transformations'''
+
 from PIL import Image
 import numpy
 
