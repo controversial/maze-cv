@@ -12,7 +12,7 @@ Checklist:
 - [x] Computer vision
     - [x] Detecting corners
     - [x] Perspective Transform
-    - [ ] Determining color of each grid space (white, red, black or green)
+    - [x] Determining color of each grid space (white, red, black or green)
     - [x] Inputting information into algorithm
 - [x] Main file
 - [x] UI
