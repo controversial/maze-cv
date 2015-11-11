@@ -15,7 +15,7 @@ from SolutionView import SolutionView
 @in_background
 def act(sender):
 	nv = sender.navigation_view
-	p=photos.pick_image()
+	p=photos.capture_image()
 	#Generate maze map from image
 	image=mazeGen.finalScan(p.resize((320,240)))
 	
