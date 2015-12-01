@@ -13,7 +13,7 @@ class SolutionView(ui.View):
 		self.image = image.convert('RGB')
 		self.load = self.image.load()
 		self.start = start
-		self.goal = goal		
+		self.goal = goal
 		sx, sy = start
 		gx, gy = goal
 		self.load[sx,sy] = 'green'
