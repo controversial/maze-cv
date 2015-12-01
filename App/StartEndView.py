@@ -1,6 +1,9 @@
 '''View for marking the start and end of a maze'''
+
 import ui
 from PIL import Image
+
+CELLS_PER_ROW = 16
 
 class target(ui.View):
 	pass
@@ -10,16 +13,17 @@ class dragDrop(ui.View):
 		'''snap to nearest target in same dragContainer'''
 		targets = self.superview.targets
 		#find closest target
-		centers = [t.center for t in targets]
-		distances = [ abs(c[0]-self.center[0])+abs(c[1]-self.center[1]) for c in centers]
-		
+		centers = (t.center for t in targets)
+		distances = [abs(c[0]-self.center[0]) + abs(c[1]-self.center[1]) for c in centers]
 		self.center = centers[distances.index(min(distances))]
+
 	def touch_moved(self, touch):
 		cx, cy = touch.location
 		ox, oy = touch.prev_location
 		tx, ty = ox-cx, oy-cy
 		self.x -= tx
 		self.y -= ty
+
 	def touch_ended(self,touch):
 		self.snap()
 		
@@ -41,31 +45,33 @@ class StartEndView(ui.View):
 		self.container = None
 		
 	def make(self):
-		buttonsize = int(self.height/16)
-		self.startx=int((self.width/2-self.height/2))
+		buttonsize = int(self.height / CELLS_PER_ROW)
+		self.startx = int(self.width / 2 - self.height / 2)
 		
-		self.start=dragDrop(frame=(self.startx-buttonsize,0,buttonsize,buttonsize),background_color=(0,1,0))
-		self.end=dragDrop(frame=(self.startx-buttonsize,buttonsize,buttonsize,buttonsize), background_color=(1,0,0))
+		self.start = dragDrop(frame=(self.startx-buttonsize, 0, buttonsize, buttonsize),
+			background_color = 'green')
+		self.end = dragDrop(frame=(self.startx-buttonsize,buttonsize,buttonsize,buttonsize),
+			background_color = 'red')
 		
 		drags = self.start, self.end 
 		
 		targets = []
-		for x in range(16):
-			for y in range(16):
-				frame=(self.startx+x*buttonsize,y*buttonsize,buttonsize,buttonsize)
+		for x in range(CELLS_PER_ROW):
+			for y in range(CELLS_PER_ROW):
+				frame=(self.startx+x*buttonsize, y*buttonsize, buttonsize, buttonsize)
 				if self.load[x,y] == (255,255,255):
-					bg=(1,1,1)
+					bg = 'white'
 				else:
-					bg=(0,0,0)
+					bg = 'black
 				targets.append(target(frame=frame, background_color=bg))
 				
 		self.container = dragContainer(drags, targets)
-		self.container.background_color=(1,1,1)
+		self.container.background_color = 'white'
 		self.container.frame = self.frame
 		self.add_subview(self.container)
 	
 	def draw(self):
-		if self.container is None:
+		if not self.container:
 			self.make()
 	
 	def finish(self, *args):
@@ -79,5 +85,4 @@ class StartEndView(ui.View):
 		
 if __name__ == '__main__':
 	import photos
-	s = StartEndView(photos.pick_image())
-	s.present(hide_title_bar=1)
+	StartEndView(photos.pick_image()).present(hide_title_bar = True)
