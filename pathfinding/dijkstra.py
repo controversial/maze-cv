@@ -59,21 +59,11 @@ if __name__ == '__main__':
 	nodes = [Node(alpha[x]) for x in range(9)]
 	graph = Graph(nodes)
 	
-	graph.add_connection(nodes[0], nodes[1])
-	graph.add_connection(nodes[1], nodes[2])
-	graph.add_connection(nodes[2], nodes[3])
-	graph.add_connection(nodes[3], nodes[4])
-	graph.add_connection(nodes[4], nodes[5])
-	graph.add_connection(nodes[5], nodes[6])
-	graph.add_connection(nodes[6], nodes[7])
-	graph.add_connection(nodes[7], nodes[8])
+	for i in xrange(8):
+		graph.add_connection(nodes[i], nodes[i+1])
 	
-	graph.add_connection(nodes[0], nodes[3])
-	graph.add_connection(nodes[1], nodes[4])
-	graph.add_connection(nodes[2], nodes[5])
-	graph.add_connection(nodes[3], nodes[6])
-	graph.add_connection(nodes[4], nodes[7])
-	graph.add_connection(nodes[5], nodes[8])
+	for i in xrange(6):
+		graph.add_connection(nodes[i], nodes[i+3])
 	
 	graph.add_connection(nodes[0], nodes[4], 1.5)
 	graph.add_connection(nodes[1], nodes[3], 1.5)
