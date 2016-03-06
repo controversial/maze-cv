@@ -1,5 +1,6 @@
 '''Bradley adaptive thresholding. Credit goes to http://stackoverflow.com/a/33092928/4414003
-where user @rayryeng wrote an implementation much more efficient than mine'''
+where user @rayryeng wrote an implementation much more efficient than mine. To see my original code,
+visit that link.'''
 
 import numpy as np
 from PIL import Image
