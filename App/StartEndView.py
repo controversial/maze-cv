@@ -62,7 +62,7 @@ class StartEndView(ui.View):
 				if self.load[x,y] == (255,255,255):
 					bg = 'white'
 				else:
-					bg = 'black
+					bg = 'black'
 				targets.append(target(frame=frame, background_color=bg))
 				
 		self.container = dragContainer(drags, targets)
