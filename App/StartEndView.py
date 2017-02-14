@@ -59,7 +59,7 @@ class StartEndView(ui.View):
 		for x in range(CELLS_PER_ROW):
 			for y in range(CELLS_PER_ROW):
 				frame=(self.startx+x*buttonsize, y*buttonsize, buttonsize, buttonsize)
-				bg = 'white' if self.load[x,y] == (255,255,255) else 'black'
+				bg = 'white' if self.load[x, y] == (255,255,255) else 'black'
 				targets.append(target(frame=frame, background_color=bg))
 				
 		self.container = dragContainer(drags, targets)
